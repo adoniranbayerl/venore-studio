@@ -1,9 +1,13 @@
-import type { ShellProps } from "./types";
+import type { ReactNode } from "react";
 
-export function AuthShell({ children }: ShellProps) {
+type AuthShellProps = {
+  children: ReactNode;
+};
+
+export function AuthShell({ children }: AuthShellProps) {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-6 py-10 text-foreground">
-      <div className="w-full max-w-md">{children}</div>
+    <div className="flex min-h-screen items-center justify-center bg-background">
+      {children}
     </div>
   );
 }

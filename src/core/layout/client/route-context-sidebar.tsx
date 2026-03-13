@@ -3,20 +3,15 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-import type { LayoutContext } from "@/core/layout/types";
-import type { NavSection, NavigationUserLike } from "@/core/navigation";
-import { filterNavSections, getContextNavigation } from "@/core/navigation";
+import type { NavSection } from "@/core/navigation";
+import { getContextNavigation } from "@/core/navigation";
 import { SidebarContext } from "@/core/ui/layout";
 
 type RouteContextSidebarProps = {
-  context: LayoutContext;
-  user: NavigationUserLike;
+  context: "private" | "admin";
 };
 
-export function RouteContextSidebar({
-  context,
-  user,
-}: RouteContextSidebarProps) {
+export function RouteContextSidebar({ context }: RouteContextSidebarProps) {
   const pathname = usePathname();
   const [sections, setSections] = useState<NavSection[]>([]);
 
@@ -27,7 +22,7 @@ export function RouteContextSidebar({
       const result = await getContextNavigation(context, pathname);
 
       if (mounted) {
-        setSections(filterNavSections(result, user));
+        setSections(result);
       }
     }
 
@@ -36,7 +31,7 @@ export function RouteContextSidebar({
     return () => {
       mounted = false;
     };
-  }, [context, pathname, user]);
+  }, [context, pathname]);
 
   if (!sections.length) {
     return null;

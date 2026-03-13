@@ -3,13 +3,12 @@
 import { revalidatePath } from "next/cache";
 
 import {
-  PERMISSIONS,
-  ROLES,
   assignRoleToUser,
   removeRoleFromUser,
   requirePermission,
-} from "@/core/permissions";
+} from "@/core/permissions/server";
 
+import { PERMISSIONS, ROLES } from "@/core/permissions";
 export async function promoteToAdmin(userId: string) {
   await requirePermission(PERMISSIONS.ROLES_MANAGE);
   await assignRoleToUser(userId, ROLES.ADMIN);

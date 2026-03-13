@@ -1,51 +1,21 @@
-import { auth } from "@/core/auth";
-import {
-  filterNavSections,
-  getBreadcrumbs,
-  getContextNavigation,
-  getMainNavigation,
-} from "@/core/navigation";
+import { getMainNavigation } from "@/core/navigation";
+import type { NavSection } from "@/core/navigation";
 
-import { getStaticLayoutDefinition } from "./sources/static";
-import type {
-  LayoutContext,
-  ResolvedRouteState,
-  ResolvedShellBase,
-} from "./types";
+import { staticPageMetaResolvers } from "./sources/static";
+import type { LayoutPageMeta } from "./types";
 
-export async function resolveShellBase(
-  context: LayoutContext,
-): Promise<ResolvedShellBase> {
-  const session = await auth();
-  const user = session?.user ?? null;
-
-  const definition = getStaticLayoutDefinition(context);
-  const mainNavigation = filterNavSections(
-    await getMainNavigation(context),
-    user,
-  );
-
-  return {
-    definition,
-    mainNavigation,
-    user,
-  };
+export async function getPrivateMainNavigation(): Promise<NavSection[]> {
+  return getMainNavigation("private");
 }
 
-export async function resolveRouteState(
-  context: LayoutContext,
-  pathname: string,
-): Promise<ResolvedRouteState> {
-  const session = await auth();
-  const user = session?.user ?? null;
+export async function getAdminMainNavigation(): Promise<NavSection[]> {
+  return getMainNavigation("admin");
+}
 
-  const [breadcrumbs, contextNavigation] = await Promise.all([
-    getBreadcrumbs(pathname),
-    getContextNavigation(context, pathname),
-  ]);
+export async function getPageMeta(pathname: string): Promise<LayoutPageMeta> {
+  const match = staticPageMetaResolvers.find((resolver) =>
+    resolver.pattern.test(pathname),
+  );
 
-  return {
-    breadcrumbs,
-    contextNavigation: filterNavSections(contextNavigation, user),
-  };
+  return match?.meta ?? {};
 }

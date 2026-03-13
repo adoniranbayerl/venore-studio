@@ -1,4 +1,4 @@
-import { getAdminUsersList } from "@/core/permissions";
+import { getAdminUsersList } from "@/core/permissions/server";
 import { UsersTable } from "@/core/ui/admin/users-table";
 
 import { Button } from "@/components/ui/button";

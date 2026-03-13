@@ -11,9 +11,14 @@ import { cn } from "@/lib/utils";
 type SidebarContextProps = {
   sections: NavSection[];
   className?: string;
+  title?: string;
 };
 
-export function SidebarContext({ sections, className }: SidebarContextProps) {
+export function SidebarContext({
+  sections,
+  className,
+  title,
+}: SidebarContextProps) {
   const pathname = usePathname();
 
   if (!sections.length) {
@@ -21,22 +26,25 @@ export function SidebarContext({ sections, className }: SidebarContextProps) {
   }
 
   return (
-    <aside
-      className={cn(
-        "flex h-full w-64 flex-col border-r bg-muted/30",
-        className,
-      )}
+    <div
+      className={cn("flex h-full min-h-0 flex-col bg-background", className)}
     >
-      <nav className="flex-1 space-y-6 overflow-y-auto px-3 py-4">
+      <div className="border-b px-4 py-5">
+        <p className="text-sm font-semibold tracking-tight">
+          {title ?? "Contexto"}
+        </p>
+      </div>
+
+      <nav className="flex-1 space-y-7 overflow-y-auto px-4 py-6">
         {sections.map((section) => (
-          <div key={section.key} className="space-y-2">
+          <div key={section.key} className="space-y-3">
             {section.label ? (
-              <p className="px-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              <p className="px-2 text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
                 {section.label}
               </p>
             ) : null}
 
-            <div className="space-y-1">
+            <div className="space-y-1.5">
               {section.items.map((item) => {
                 const active = isNavItemActive(item, pathname);
 
@@ -45,7 +53,7 @@ export function SidebarContext({ sections, className }: SidebarContextProps) {
                     key={item.key}
                     href={item.href}
                     className={cn(
-                      "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
+                      "flex items-center gap-3 rounded-md px-3 py-2.5 text-sm transition-colors",
                       "hover:bg-muted hover:text-foreground",
                       active && "bg-muted font-medium text-foreground",
                       !active && "text-muted-foreground",
@@ -66,6 +74,6 @@ export function SidebarContext({ sections, className }: SidebarContextProps) {
           </div>
         ))}
       </nav>
-    </aside>
+    </div>
   );
 }

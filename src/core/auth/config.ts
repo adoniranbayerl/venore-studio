@@ -4,7 +4,7 @@ import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
 import { db } from "@/db";
 import { accounts, sessions, users, verificationTokens } from "@/db/schema";
-import { getUserAuthorizationData } from "@/core/permissions";
+import { getUserAuthorizationData } from "@/core/permissions/server";
 
 export const authConfig: NextAuthConfig = {
   adapter: DrizzleAdapter(db, {

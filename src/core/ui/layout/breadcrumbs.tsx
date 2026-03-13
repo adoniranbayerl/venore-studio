@@ -9,7 +9,7 @@ type BreadcrumbsProps = {
 };
 
 export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
-  if (!items.length) {
+  if (!items.length || items.length <= 1) {
     return null;
   }
 

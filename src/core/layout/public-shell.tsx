@@ -1,9 +1,15 @@
-import type { ShellProps } from "./types";
+import type { ReactNode } from "react";
 
-export function PublicShell({ children }: ShellProps) {
+import { AppShell, SiteHeader, Footer } from "@/core/ui/layout";
+
+type PublicShellProps = {
+  children: ReactNode;
+};
+
+export function PublicShell({ children }: PublicShellProps) {
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
-      <main className="flex-1">{children}</main>
-    </div>
+    <AppShell siteHeader={<SiteHeader brand="Venore" />} footer={<Footer />}>
+      {children}
+    </AppShell>
   );
 }

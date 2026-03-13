@@ -1,37 +1,60 @@
-import type { ShellProps } from "./types";
+import type { ReactNode } from "react";
 
-import { AppShell, Footer, PageContainer, SidebarMain } from "@/core/ui/layout";
+import { auth } from "@/core/auth";
+import { Brand } from "@/core/ui/brand";
+import {
+  AppShell,
+  Footer,
+  PageContainer,
+  SidebarMain,
+  SiteHeader,
+  UserMenu,
+  defaultUserMenuItems,
+} from "@/core/ui/layout";
 
 import { RouteContextSidebar } from "./client/route-context-sidebar";
-import { RouteHeader } from "./client/route-header";
-import { resolveShellBase } from "./service";
+import { RoutePageHeader } from "./client/route-page-header";
+import { getAdminMainNavigation } from "./service";
 
-export async function AdminShell({ children }: ShellProps) {
-  const data = await resolveShellBase("admin");
+type AdminShellProps = {
+  children: ReactNode;
+};
+
+export async function AdminShell({ children }: AdminShellProps) {
+  const [mainNavigation, session] = await Promise.all([
+    getAdminMainNavigation(),
+    auth(),
+  ]);
+
+  const user = session?.user;
 
   return (
     <AppShell
-      header={
-        data.definition.showHeader ? (
-          <RouteHeader
-            title={data.definition.title}
-            description={data.definition.description}
-          />
-        ) : null
+      siteHeader={
+        <SiteHeader
+          brand={
+            <Brand
+              href="/admin"
+              label=""
+              logoSrc="/brand/venore.svg"
+              logoAlt="Venore Admin"
+              logoClassName="h-18 w-auto"
+            />
+          }
+          userNav={
+            <UserMenu
+              name={user?.name}
+              email={user?.email}
+              avatarUrl={user?.image}
+              items={defaultUserMenuItems}
+            />
+          }
+        />
       }
-      sidebar={
-        data.definition.showSidebar ? (
-          <SidebarMain sections={data.mainNavigation} />
-        ) : null
-      }
-      sidebarContext={
-        data.definition.showContextSidebar ? (
-          <RouteContextSidebar context="admin" user={data.user} />
-        ) : null
-      }
-      footer={
-        data.definition.showFooter ? <Footer>© Venore Admin</Footer> : null
-      }
+      pageHeader={<RoutePageHeader />}
+      sidebar={<SidebarMain sections={mainNavigation} />}
+      sidebarContext={<RouteContextSidebar context="admin" />}
+      footer={<Footer />}
     >
       <PageContainer>{children}</PageContainer>
     </AppShell>

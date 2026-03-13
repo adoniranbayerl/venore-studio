@@ -1,38 +1,102 @@
-import type { LayoutContext, LayoutDefinition } from "../types";
+import type { LayoutPageMetaResolver } from "../types";
 
-const layoutDefinitions: Record<LayoutContext, LayoutDefinition> = {
-  public: {
-    title: "Venore",
-    showHeader: false,
-    showFooter: false,
-    showSidebar: false,
-    showContextSidebar: false,
+export const staticPageMetaResolvers: LayoutPageMetaResolver[] = [
+  {
+    pattern: /^\/dashboard$/,
+    meta: {
+      title: "Dashboard",
+      metadata: "Visão geral do portal do usuário.",
+    },
   },
-  auth: {
-    title: "Autenticação",
-    showHeader: false,
-    showFooter: false,
-    showSidebar: false,
-    showContextSidebar: false,
+  {
+    pattern: /^\/profile$/,
+    meta: {
+      title: "Perfil",
+      metadata: "Dados e informações do usuário.",
+    },
   },
-  private: {
-    title: "Portal",
-    showHeader: true,
-    showFooter: true,
-    showSidebar: true,
-    showContextSidebar: true,
+  {
+    pattern: /^\/account$/,
+    meta: {
+      title: "Conta",
+      metadata: "Configurações e preferências da conta.",
+    },
   },
-  admin: {
-    title: "Admin",
-    showHeader: true,
-    showFooter: true,
-    showSidebar: true,
-    showContextSidebar: true,
+  {
+    pattern: /^\/notifications$/,
+    meta: {
+      title: "Notificações",
+      metadata: "Atualizações e avisos do sistema.",
+    },
   },
-};
-
-export function getStaticLayoutDefinition(
-  context: LayoutContext,
-): LayoutDefinition {
-  return layoutDefinitions[context];
-}
+  {
+    pattern: /^\/admin$/,
+    meta: {
+      title: "Admin",
+      metadata: "Painel administrativo do sistema.",
+    },
+  },
+  {
+    pattern: /^\/admin\/users$/,
+    meta: {
+      title: "Usuários",
+      metadata: "Gerencie os usuários da plataforma.",
+    },
+  },
+  {
+    pattern: /^\/admin\/users\/create$/,
+    meta: {
+      title: "Criar usuário",
+      metadata: "Cadastre um novo usuário no sistema.",
+    },
+  },
+  {
+    pattern: /^\/admin\/roles$/,
+    meta: {
+      title: "Papéis e permissões",
+      metadata: "Gerencie roles e permissões do sistema.",
+    },
+  },
+  {
+    pattern: /^\/admin\/pages$/,
+    meta: {
+      title: "Páginas",
+      metadata: "Gerencie as páginas do CMS.",
+    },
+  },
+  {
+    pattern: /^\/admin\/pages\/create$/,
+    meta: {
+      title: "Nova página",
+      metadata: "Crie uma nova página no CMS.",
+    },
+  },
+  {
+    pattern: /^\/admin\/menus$/,
+    meta: {
+      title: "Menus",
+      metadata: "Gerencie a navegação e os menus do portal.",
+    },
+  },
+  {
+    pattern: /^\/admin\/media$/,
+    meta: {
+      title: "Mídia",
+      metadata: "Gerencie arquivos e mídia do sistema.",
+    },
+  },
+  {
+    pattern: /^\/admin\/modules$/,
+    meta: {
+      title: "Módulos",
+      metadata: "Gerencie módulos e extensões do Venore.",
+    },
+  },
+  {
+    pattern: /^\/admin\/settings$/,
+    meta: {
+      title: "Configurações",
+      metadata: "Ajustes gerais do sistema.",
+    },
+  },
+];

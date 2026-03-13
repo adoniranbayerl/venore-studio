@@ -5,12 +5,22 @@ import { cn } from "@/lib/utils";
 type PageContainerProps = {
   children: ReactNode;
   className?: string;
+  fluid?: boolean;
 };
 
-export function PageContainer({ children, className }: PageContainerProps) {
+export function PageContainer({
+  children,
+  className,
+  fluid = false,
+}: PageContainerProps) {
   return (
-    <main className={cn("flex-1 px-6 py-6", className)}>
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
+    <main className={cn("flex-1 px-8 py-6", className)}>
+      <div
+        className={cn(
+          "flex w-full flex-col gap-6",
+          fluid ? "max-w-none" : "mx-auto max-w-7xl",
+        )}
+      >
         {children}
       </div>
     </main>

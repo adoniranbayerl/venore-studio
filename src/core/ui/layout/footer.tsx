@@ -15,7 +15,9 @@ export function Footer({ children, className }: FooterProps) {
         className,
       )}
     >
-      {children ?? <p>© Venore</p>}
+      <div className="mx-auto flex w-full max-w-7xl items-center">
+        {children ?? <p>© Venore</p>}
+      </div>
     </footer>
   );
 }
