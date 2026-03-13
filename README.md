@@ -1,36 +1,379 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Venore — Architecture
 
-## Getting Started
+## Overview
 
-First, run the development server:
+Venore é um **produto-base para construção de portais modernos** com:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- área pública
+- área autenticada
+- painel administrativo
+- CMS com page builder
+- sistema de permissões
+- arquitetura modular (plugins)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O objetivo do Venore é servir como **fundação reutilizável** para múltiplos tipos de portais:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- portal do colaborador
+- portal do aluno
+- intranet
+- área de membros
+- portal institucional
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+# Core Principles
 
-To learn more about Next.js, take a look at the following resources:
+1. **Single-tenant**
+   Cada portal possui sua própria instalação.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Domain separation**
+   A arquitetura é separada em domínios claros.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Plugin architecture**
+   Funcionalidades de negócio vivem em módulos.
 
-## Deploy on Vercel
+4. **Core independence**
+   O core nunca depende de módulos.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. **CMS ≠ Modules**
+   Page builder resolve páginas.
+   Módulos resolvem funcionalidades estruturadas.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+# System Layers
+
+## Core
+
+Infraestrutura fundamental do sistema.
+
+Responsabilidades:
+
+- auth
+- users
+- roles
+- permissions
+- navigation
+- settings
+- media
+- plugin registry
+- UI base
+- logging
+
+Localização:
+
+src/core
+
+---
+
+## CMS
+
+Responsável por conteúdo editável.
+
+Responsabilidades:
+
+- pages
+- page builder
+- menus
+- seo
+- slugs
+
+Localização:
+
+src/cms
+
+---
+
+## Portal
+
+Experiência padrão do usuário autenticado.
+
+Responsabilidades:
+
+- dashboard
+- profile
+- account
+- notifications
+
+Localização:
+
+src/portal
+
+---
+
+## Admin
+
+Painel administrativo do sistema.
+
+Responsabilidades:
+
+- users
+- roles
+- permissions
+- settings
+- media
+- CMS management
+- modules
+
+Localização:
+
+src/admin
+
+---
+
+## Modules (Plugins)
+
+Funcionalidades de domínio.
+
+Exemplos:
+
+- gallery
+- publishing
+- ouvidoria
+- documents
+- events
+- photo-store
+
+Localização:
+
+src/modules
+
+---
+
+# Routing Structure
+
+Next.js App Router usando route groups.
+
+src/app
+
+## Public
+
+(public)
+
+Exemplos:
+
+/
+[...slug]
+/blog
+/blog/[slug]
+
+---
+
+## Auth
+
+(auth)
+
+Exemplos:
+
+/login
+/logout
+/unauthorized
+/error
+
+---
+
+## Private
+
+Área autenticada.
+
+(private)
+
+Exemplos:
+
+/dashboard
+/profile
+/account
+/notifications
+/portal/[...slug]
+
+---
+
+## Admin
+
+Painel administrativo.
+
+/admin
+
+Exemplos:
+
+/admin/users
+/admin/roles
+/admin/settings
+/admin/pages
+/admin/modules
+
+---
+
+# Folder Structure
+
+src
+├ app
+│ ├ (public)
+│ ├ (auth)
+│ ├ (private)
+│ ├ admin
+│ └ api
+│
+├ core
+│ ├ auth
+│ ├ users
+│ ├ permissions
+│ ├ navigation
+│ ├ settings
+│ ├ media
+│ ├ ui
+│ └ plugins
+│
+├ cms
+│ ├ pages
+│ ├ builder
+│ ├ menus
+│ └ seo
+│
+├ portal
+│ ├ dashboard
+│ ├ profile
+│ ├ account
+│ └ notifications
+│
+├ admin
+│ ├ dashboard
+│ ├ users
+│ ├ roles
+│ ├ settings
+│ ├ media
+│ ├ pages
+│ ├ menus
+│ └ modules
+│
+├ modules
+│ ├ gallery
+│ ├ ouvidoria
+│ ├ photo-store
+│ ├ documents
+│ └ events
+│
+├ components
+│ ├ ui
+│ ├ layout
+│ └ shared
+│
+├ db
+│ ├ schema
+│ ├ migrations
+│ └ seeds
+│
+├ lib
+├ hooks
+└ types
+
+---
+
+# Icon System
+
+O Venore utiliza um **icon provider system**.
+
+Bibliotecas suportadas:
+
+- lucide
+- tabler
+- heroicons
+
+O sistema usa um wrapper único:
+
+<Icon name="settings" />
+
+Localização:
+
+src/core/ui/icon
+
+---
+
+# Plugin System
+
+Cada módulo registra:
+
+- id
+- name
+- permissions
+- menu entries
+- routes
+- settings schema
+
+Isso permite que módulos se integrem ao sistema sem modificar o core.
+
+---
+
+# Page Builder
+
+O CMS possui um editor baseado em blocos.
+
+Tipos de blocos:
+
+Layout
+
+- section
+- container
+- grid
+- columns
+
+Content
+
+- title
+- text
+- image
+- gallery
+- video
+- embed
+- cards
+- accordion
+
+Cada bloco possui:
+
+- type
+- schema
+- defaultProps
+- renderer
+- editorConfig
+
+---
+
+# Tech Stack
+
+Framework
+
+- Next.js
+- React
+- TypeScript
+
+UI
+
+- Tailwind
+- shadcn/ui
+
+Auth
+
+- Auth.js
+
+Database
+
+- PostgreSQL
+- Drizzle ORM
+
+Validation
+
+- Zod
+
+Forms
+
+- React Hook Form
+
+Drag and Drop
+
+- dnd-kit
+
+Icons
+
+- lucide
+- tabler
+- heroicons

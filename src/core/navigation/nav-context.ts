@@ -1,12 +1,3 @@
-import {
-  FilePlus2,
-  List,
-  Settings,
-  Shield,
-  UserPlus,
-  Users,
-} from "lucide-react";
-
 import type { NavSection } from "./types";
 
 export function getContextNav(pathname: string): NavSection[] {
@@ -20,14 +11,14 @@ export function getContextNav(pathname: string): NavSection[] {
             key: "admin-users-list",
             label: "Todos os usuários",
             href: "/admin/users",
-            icon: Users,
+            icon: { name: "users" },
             permission: "users.manage",
           },
           {
             key: "admin-users-create",
             label: "Novo usuário",
             href: "/admin/users/create",
-            icon: UserPlus,
+            icon: { name: "plus" },
             permission: "users.manage",
           },
         ],
@@ -45,7 +36,7 @@ export function getContextNav(pathname: string): NavSection[] {
             key: "admin-roles-list",
             label: "Papéis",
             href: "/admin/roles",
-            icon: Shield,
+            icon: { name: "shield" },
             permission: "roles.manage",
           },
         ],
@@ -63,14 +54,14 @@ export function getContextNav(pathname: string): NavSection[] {
             key: "admin-pages-list",
             label: "Todas as páginas",
             href: "/admin/pages",
-            icon: List,
+            icon: { name: "list" },
             permission: "pages.manage",
           },
           {
             key: "admin-pages-create",
             label: "Nova página",
             href: "/admin/pages/create",
-            icon: FilePlus2,
+            icon: { name: "plus" },
             permission: "pages.manage",
           },
         ],
@@ -88,7 +79,7 @@ export function getContextNav(pathname: string): NavSection[] {
             key: "portal-account-overview",
             label: "Visão geral",
             href: "/portal/account",
-            icon: Settings,
+            icon: { name: "settings" },
           },
         ],
       },

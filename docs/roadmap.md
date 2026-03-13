@@ -16,10 +16,10 @@ Objetivo: preparar a base técnica do projeto.
 
 ### Próximos passos
 
-- [ ] Configuração do banco (PostgreSQL + Drizzle)
-- [ ] Estrutura inicial do schema
-- [ ] Configuração de variáveis de ambiente
-- [ ] Conexão com banco
+- [x] Configuração do banco (PostgreSQL + Drizzle)
+- [x] Estrutura inicial do schema
+- [x] Configuração de variáveis de ambiente
+- [x] Conexão com banco
 
 ---
 
@@ -27,13 +27,13 @@ Objetivo: preparar a base técnica do projeto.
 
 Objetivo: implementar autenticação e identidade de usuário.
 
-- [ ] Tabela `users`
-- [ ] Configuração do Auth.js
-- [ ] Sessões
+- [x] Tabela `users`
+- [x] Configuração do Auth.js
+- [x] Sessões
 - [ ] Login com OTP por email
-- [ ] OAuth (Google / Microsoft)
-- [ ] Middleware para rotas privadas
-- [ ] Guards de autenticação
+- [x] OAuth (Google / Microsoft / Github)
+- [x] proxy.ts para rotas privadas
+- [x] Guards de autenticação
 
 Resultado esperado:
 
@@ -46,12 +46,12 @@ Resultado esperado:
 
 Objetivo: criar sistema de acesso baseado em roles e permissões.
 
-- [ ] Tabela `roles`
-- [ ] Tabela `permissions`
-- [ ] Tabela `role_permissions`
-- [ ] Tabela `user_roles`
-- [ ] Guards de permissão
-- [ ] PermissionGate (UI)
+- [x] Tabela `roles`
+- [x] Tabela `permissions`
+- [x] Tabela `role_permissions`
+- [x] Tabela `user_roles`
+- [x] Guards de permissão
+- [x] PermissionGate (UI)
 
 Exemplos de permissões:
 

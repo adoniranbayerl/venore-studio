@@ -1,0 +1,33 @@
+import {
+  Bell,
+  Blocks,
+  FileText,
+  Home,
+  Image,
+  LayoutDashboard,
+  List,
+  LogOut,
+  MenuSquare,
+  Plus,
+  Settings,
+  Shield,
+  User,
+  Users,
+} from "lucide-react";
+
+export const lucideIcons = {
+  home: Home,
+  dashboard: LayoutDashboard,
+  user: User,
+  users: Users,
+  shield: Shield,
+  settings: Settings,
+  "file-text": FileText,
+  "menu-square": MenuSquare,
+  image: Image,
+  blocks: Blocks,
+  bell: Bell,
+  "log-out": LogOut,
+  plus: Plus,
+  list: List,
+} as const;

@@ -1,5 +1,3 @@
-import { LogOut, Settings, Shield, User } from "lucide-react";
-
 import type { UserNavItem } from "./types";
 
 export function getPrivateUserNav(): UserNavItem[] {
@@ -8,19 +6,19 @@ export function getPrivateUserNav(): UserNavItem[] {
       key: "user-profile",
       label: "Meu perfil",
       href: "/portal/profile",
-      icon: User,
+      icon: { name: "user" },
     },
     {
       key: "user-account",
       label: "Minha conta",
       href: "/portal/account",
-      icon: Settings,
+      icon: { name: "settings" },
     },
     {
       key: "user-logout",
       label: "Sair",
       href: "/auth/signout",
-      icon: LogOut,
+      icon: { name: "log-out" },
       danger: true,
     },
   ];
@@ -32,26 +30,26 @@ export function getAdminUserNav(): UserNavItem[] {
       key: "admin-profile",
       label: "Meu perfil",
       href: "/portal/profile",
-      icon: User,
+      icon: { name: "user" },
     },
     {
       key: "admin-account",
       label: "Minha conta",
       href: "/portal/account",
-      icon: Settings,
+      icon: { name: "settings" },
     },
     {
       key: "admin-security",
       label: "Segurança",
       href: "/admin/settings",
-      icon: Shield,
+      icon: { name: "shield" },
       permission: "settings.manage",
     },
     {
       key: "admin-logout",
       label: "Sair",
       href: "/auth/signout",
-      icon: LogOut,
+      icon: { name: "log-out" },
       danger: true,
     },
   ];

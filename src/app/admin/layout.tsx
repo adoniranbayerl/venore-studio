@@ -1,11 +1,7 @@
-import { requirePermission, PERMISSIONS } from "@/core/permissions";
+import type { ReactNode } from "react";
 
-export default async function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  await requirePermission(PERMISSIONS.ADMIN_ACCESS);
+import { AdminShell } from "@/core/layout";
 
-  return <>{children}</>;
+export default function AdminLayout({ children }: { children: ReactNode }) {
+  return <AdminShell>{children}</AdminShell>;
 }
