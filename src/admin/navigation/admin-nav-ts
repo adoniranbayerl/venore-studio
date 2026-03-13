@@ -1,0 +1,53 @@
+import {
+  Home,
+  Users,
+  Shield,
+  Settings,
+  ImageIcon,
+  Boxes,
+} from "lucide-react";
+
+export type AdminNavItem = {
+  title: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  permission?: string;
+};
+
+export const adminNavItems: AdminNavItem[] = [
+  {
+    title: "Dashboard",
+    href: "/admin",
+    icon: Home,
+  },
+  {
+    title: "Usuários",
+    href: "/admin/users",
+    icon: Users,
+    permission: "users.read",
+  },
+  {
+    title: "Roles",
+    href: "/admin/roles",
+    icon: Shield,
+    permission: "roles.read",
+  },
+  {
+    title: "Configurações",
+    href: "/admin/settings",
+    icon: Settings,
+    permission: "settings.read",
+  },
+  {
+    title: "Mídia",
+    href: "/admin/media",
+    icon: ImageIcon,
+    permission: "media.read",
+  },
+  {
+    title: "Módulos",
+    href: "/admin/modules",
+    icon: Boxes,
+    permission: "modules.read",
+  },
+];

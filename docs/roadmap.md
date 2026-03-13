@@ -284,24 +284,104 @@ Isso permitirá que:
 
 # Phase 5 — Admin Base
 
-Objetivo: criar o painel administrativo.
+Objetivo: implementar o painel administrativo utilizando o sistema de layout, autenticação e permissões já existentes.
 
-- [ ] Layout do admin
-- [ ] Dashboard admin
-- [ ] Gestão de usuários
-- [ ] Gestão de roles
-- [ ] Configurações do sistema
-- [ ] Gerenciamento de mídia
+O Admin será responsável pela **gestão do sistema**, incluindo usuários, roles e configurações.
 
-Rotas principais:
+---
 
-```
-/admin
-/admin/users
-/admin/roles
+## Dashboard administrativo
+
+Página inicial do painel.
+
+- [ ] Dashboard `/admin`
+- [ ] Cards de visão geral do sistema
+- [ ] Atalhos para Users, Roles e Settings
+- [ ] Informações básicas da instância
+
+Resultado esperado:
+
+- ponto de entrada do painel administrativo
+
+---
+
+## Users Management
+
+Gestão de usuários da plataforma.
+
+- [ ] Listagem de usuários
+- [ ] Página `/admin/users`
+- [ ] Visualização de usuário
+- [ ] Edição básica de usuário
+- [ ] Atribuição de roles ao usuário
+
+Integração:
+
+- sistema de permissões
+- proteção do último `super-admin`
+
+---
+
+## Roles Management
+
+Gestão de roles do sistema.
+
+- [ ] Listagem de roles
+- [ ] Página `/admin/roles`
+- [ ] Visualizar permissões da role
+- [ ] Atribuir/remover permissões
+
+Integração:
+
+- permissions system
+- guards de autorização
+
+---
+
+## Settings
+
+Configurações globais da aplicação.
+
+- [ ] Página `/admin/settings`
+- [ ] Estrutura inicial de settings
+- [ ] Persistência em banco
+
+Exemplos de settings futuros:
+
+- nome do portal
+- branding
+- features habilitadas
+
+---
+
+## Integração com Layout System
+
+As páginas administrativas devem usar os componentes criados na Phase 4:
+
+- AppShell
+- PageHeader
+- PageContainer
+- Sidebar navigation
+- Breadcrumbs
+
+---
+
+## Rotas principais
+
+/admin  
+/admin/users  
+/admin/roles  
 /admin/settings
-/admin/media
-```
+
+---
+
+## Resultado esperado
+
+- painel administrativo funcional
+- gestão de usuários
+- gestão de roles
+- configurações básicas do sistema
+- integração completa com Auth e Permissions
 
 ---
 
