@@ -38,7 +38,7 @@ export async function AdminShell({ children }: AdminShellProps) {
               label=""
               logoSrc="/brand/venore.svg"
               logoAlt="Venore Admin"
-              logoClassName="h-18 w-auto"
+              logoClassName="h-12 w-auto sm:h-14"
             />
           }
           userNav={

@@ -1,12 +1,10 @@
-import { redirect } from "next/navigation";
-import { auth } from "@/core/auth";
+import { MockPage } from "@/components/shared/mock-page";
 
-export default async function HomePage() {
-  const session = await auth();
-
-  if (session?.user) {
-    redirect("/dashboard");
-  }
-
-  redirect("/login");
+export default function HomePage() {
+  return (
+    <MockPage
+      title="Página inicial"
+      description="Mock da home pública do Venore."
+    />
+  );
 }

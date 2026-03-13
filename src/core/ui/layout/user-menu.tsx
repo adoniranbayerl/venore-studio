@@ -66,15 +66,15 @@ export function UserMenu({
         type="button"
         onClick={() => setOpen((prev) => !prev)}
         className={cn(
-          "inline-flex items-center gap-3 rounded-lg border border-transparent px-2.5 py-2 transition-all duration-200",
-          "hover:bg-muted/60 hover:border-border/60",
+          "inline-flex items-center gap-2 rounded-lg border border-border/60 px-2 py-2 transition-all duration-200",
+          "hover:bg-muted/60 hover:border-border/80",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-          open && "bg-muted/60 border-border/60",
+          open && "bg-muted/60 border-border/80",
         )}
         aria-haspopup="menu"
         aria-expanded={open}
       >
-        <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-border/70 bg-muted text-sm font-semibold shadow-sm">
+        <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-border/70 bg-muted text-sm font-semibold shadow-sm">
           {avatarUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -87,7 +87,7 @@ export function UserMenu({
           )}
         </span>
 
-        <span className="hidden min-w-0 text-left md:block">
+        <span className="hidden min-w-0 text-left lg:block">
           <span className="block truncate text-sm font-semibold leading-none text-foreground">
             {name ?? "Usuário"}
           </span>
@@ -101,14 +101,14 @@ export function UserMenu({
 
         <ChevronDown
           className={cn(
-            "hidden h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 md:block",
+            "h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200",
             open && "rotate-180",
           )}
         />
       </button>
 
       {open ? (
-        <div className="absolute right-0 top-[calc(100%+0.625rem)] z-50 w-72 rounded-xl border border-border/70 bg-popover p-2 shadow-lg">
+        <div className="absolute right-0 top-[calc(100%+0.625rem)] z-50 w-72 max-w-[calc(100vw-1rem)] rounded-xl border border-border/70 bg-popover p-2 shadow-lg">
           <div className="flex items-center gap-3 rounded-lg px-3 py-3">
             <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-border/70 bg-muted text-sm font-semibold">
               {avatarUrl ? (

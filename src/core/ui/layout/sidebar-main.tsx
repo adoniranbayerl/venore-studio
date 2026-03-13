@@ -104,7 +104,7 @@ export function SidebarMain({
         ))}
       </nav>
 
-      <div className="border-t p-3">
+      <div className="hidden border-t p-3 lg:block">
         <button
           type="button"
           onClick={onToggleCollapsed}

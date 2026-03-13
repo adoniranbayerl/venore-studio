@@ -38,7 +38,7 @@ export async function PrivateShell({ children }: PrivateShellProps) {
               label=""
               logoSrc="/brand/venore.svg"
               logoAlt="Venore"
-              logoClassName="h-18 w-auto"
+              logoClassName="h-12 w-auto sm:h-14"
             />
           }
           userNav={

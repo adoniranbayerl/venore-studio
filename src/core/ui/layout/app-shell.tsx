@@ -54,26 +54,40 @@ export function AppShell({
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [mobileContextOpen, setMobileContextOpen] = useState(false);
+  const [isDesktopSidebar, setIsDesktopSidebar] = useState(false);
+  const [isDesktopContext, setIsDesktopContext] = useState(false);
 
   useEffect(() => {
     function handleScroll() {
       setIsScrolled(window.scrollY > 0);
     }
 
+    function handleResize() {
+      setIsDesktopSidebar(window.innerWidth >= 1024); // lg
+      setIsDesktopContext(window.innerWidth >= 1280); // xl
+    }
+
     handleScroll();
+    handleResize();
+
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
-  const headerHeight = isScrolled ? 56 : 140;
+  const headerHeight = isScrolled ? 56 : 80;
   const sidebarTop = headerHeight;
   const sidebarHeight = `calc(100vh - ${headerHeight}px)`;
 
   const sidebarWidth = sidebar ? (sidebarCollapsed ? 80 : 288) : 0;
   const contextWidth = sidebarContext ? 256 : 0;
+
+  const appliedSidebarWidth = isDesktopSidebar ? sidebarWidth : 0;
+  const appliedContextWidth = isDesktopContext ? contextWidth : 0;
 
   const sidebarWidthClass = useMemo(
     () => (sidebarCollapsed ? "w-20" : "w-72"),
@@ -128,7 +142,7 @@ export function AppShell({
           />
           <aside
             className={cn(
-              "fixed left-0 z-50 w-72 border-r border-border/60 bg-background transition-transform duration-300 ease-in-out lg:hidden",
+              "fixed left-0 z-50 w-[85vw] max-w-72 border-r border-border/60 bg-background transition-transform duration-300 ease-in-out lg:hidden",
               mobileSidebarOpen ? "translate-x-0" : "-translate-x-full",
             )}
             style={sharedPanelStyle}
@@ -151,7 +165,7 @@ export function AppShell({
           />
           <aside
             className={cn(
-              "fixed right-0 z-50 w-72 border-l border-border/60 bg-background transition-transform duration-300 ease-in-out xl:hidden",
+              "fixed right-0 z-50 w-[85vw] max-w-72 border-l border-border/60 bg-background transition-transform duration-300 ease-in-out xl:hidden",
               mobileContextOpen ? "translate-x-0" : "translate-x-full",
             )}
             style={sharedPanelStyle}
@@ -197,8 +211,8 @@ export function AppShell({
         <div
           className="min-w-0 flex-1 overflow-x-hidden transition-[margin,min-height] duration-300 ease-in-out"
           style={{
-            marginLeft: sidebarWidth,
-            marginRight: contextWidth,
+            marginLeft: appliedSidebarWidth,
+            marginRight: appliedContextWidth,
             minHeight: `calc(100vh - ${headerHeight}px)`,
           }}
         >

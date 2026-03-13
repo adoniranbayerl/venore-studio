@@ -27,24 +27,29 @@ export function SidebarContext({
 
   return (
     <div
-      className={cn("flex h-full min-h-0 flex-col bg-background", className)}
+      className={cn(
+        "flex h-full min-h-0 flex-col overflow-x-hidden bg-background",
+        className,
+      )}
     >
-      <div className="border-b px-4 py-5">
-        <p className="text-sm font-semibold tracking-tight">
+      <div className="px-4 py-5">
+        <p className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">
           {title ?? "Contexto"}
         </p>
       </div>
 
-      <nav className="flex-1 space-y-7 overflow-y-auto px-4 py-6">
+      <nav className="flex-1 space-y-4 overflow-y-auto overflow-x-hidden px-3 pb-5">
         {sections.map((section) => (
-          <div key={section.key} className="space-y-3">
+          <div key={section.key} className="space-y-2">
             {section.label ? (
-              <p className="px-2 text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
-                {section.label}
-              </p>
+              <div className="px-2">
+                <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground/80">
+                  {section.label}
+                </p>
+              </div>
             ) : null}
 
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               {section.items.map((item) => {
                 const active = isNavItemActive(item, pathname);
 
@@ -53,20 +58,22 @@ export function SidebarContext({
                     key={item.key}
                     href={item.href}
                     className={cn(
-                      "flex items-center gap-3 rounded-md px-3 py-2.5 text-sm transition-colors",
-                      "hover:bg-muted hover:text-foreground",
-                      active && "bg-muted font-medium text-foreground",
-                      !active && "text-muted-foreground",
+                      "group flex items-center rounded-md px-3 py-2 text-sm transition-all duration-200 ease-in-out",
+                      active
+                        ? "bg-muted/80 font-medium text-foreground"
+                        : "text-muted-foreground hover:bg-muted/50 hover:text-foreground",
                     )}
                   >
-                    {item.icon ? (
-                      <Icon
-                        name={item.icon.name}
-                        className="h-4 w-4 shrink-0"
-                      />
-                    ) : null}
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center">
+                      {item.icon ? (
+                        <Icon
+                          name={item.icon.name}
+                          className="h-4 w-4 shrink-0 transition-transform duration-200 ease-in-out group-hover:scale-105"
+                        />
+                      ) : null}
+                    </span>
 
-                    <span className="truncate">{item.label}</span>
+                    <span className="ml-2 truncate">{item.label}</span>
                   </Link>
                 );
               })}

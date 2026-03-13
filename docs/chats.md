@@ -17,7 +17,8 @@ sidebar
 breadcrumbs
 
 4️⃣ Venore — Admin Base
-layout admin
+Admin routes (definir quais serão as rotas)
+admin pages's layouts and design
 users management
 roles management
 settings
